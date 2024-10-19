@@ -231,6 +231,14 @@ function getStatementText(statement: ts.Statement, includeSortingValue: boolean,
 							return node;
 						}
 
+						if (ts.isIdentifier(node) && (node.parent as ts.NamedDeclaration).name === node && (
+							ts.isInterfaceDeclaration(node.parent) ||
+							ts.isClassDeclaration(node.parent) ||
+							ts.isTypeAliasDeclaration(node.parent)
+						)) {
+							return node;
+						}
+
 						return recreateEntityName(node, helpers);
 					}
 				}
