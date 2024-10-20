@@ -233,8 +233,7 @@ function getStatementText(statement: ts.Statement, includeSortingValue: boolean,
 
 						if (ts.isIdentifier(node) && (node.parent as ts.NamedDeclaration).name === node && (
 							ts.isInterfaceDeclaration(node.parent) ||
-							ts.isClassDeclaration(node.parent) ||
-							ts.isTypeAliasDeclaration(node.parent)
+							ts.isClassDeclaration(node.parent)
 						)) {
 							return node;
 						}
