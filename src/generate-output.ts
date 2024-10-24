@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 
 import { packageVersion } from './helpers/package-version';
-import { getModifiers, getNodeName, modifiersToMap, recreateRootLevelNodeWithModifiers } from './helpers/typescript';
+import { getClosestModuleLikeNode, getModifiers, getNodeName, isAmbientModule, modifiersToMap, recreateRootLevelNodeWithModifiers } from './helpers/typescript';
 
 export interface ModuleImportsSet {
 	defaultImports: Set<string>;
@@ -235,7 +235,10 @@ function getStatementText(statement: ts.Statement, includeSortingValue: boolean,
 							ts.isInterfaceDeclaration(node.parent) ||
 							ts.isClassDeclaration(node.parent)
 						)) {
-							return node;
+							const moduleNode = getClosestModuleLikeNode(node);
+							if (isAmbientModule(moduleNode)) {
+								return node;
+							}
 						}
 
 						return recreateEntityName(node, helpers);
