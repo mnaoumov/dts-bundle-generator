@@ -20,4 +20,13 @@ declare module 'node:fs' {
 	class BigIntOptions {
 		newField: string;
 	}
+
+	interface Interface1 {}
+
+	interface Interface3 extends Interface2 {}
+}
+
+declare global {
+	interface Interface2 {}
+	interface Interface3 extends Interface1 {}
 }
